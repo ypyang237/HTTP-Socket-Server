@@ -21,17 +21,17 @@ var indexHTML = '<!DOCTYPE html>' +
 '</html>';
 
 
-// function myHeader(length) {
-//   return 'HTTP/1.1 200 OK \n \n';
- // 'Date: '+ new Date() +', \n' +
- // 'Content-Length:' +  length + '\nConnection: keep-alive \n \n';
+function myHeader(length) {
+  return 'HTTP/1.1 200 OK \r\nServer: Pams \r\n' +
+ 'Date: '+ new Date() +'; \r\nContent-Type: text/html; charset = utf-8 \r\n'+
+ 'Content-Length:' +  length + '\r\nConnection: keep-alive \r\n\r\n';
 
-// }
+}
 
 function myCssHeader(length) {
-  return 'HTTP/1.1 200 OK \nServer: Pams \n' +
- 'Date: '+ new Date() +'; \nContent-Type: text/css; charset = utf-8 \n'+
- 'Content-Length:' +  length + '\n Connection: keep-alive \n \n';
+  return 'HTTP/1.1 200 OK \r\nServer: Pams \r\n' +
+ 'Date: '+ new Date() +'; \r\nContent-Type: text/css; charset = utf-8 \r\n'+
+ 'Content-Length:' +  length + '\r\n Connection: keep-alive \r\n\r\n';
 
 }
 
@@ -149,18 +149,23 @@ var server = net.createServer(function(request){
         request.write(myHeader(indexHTML.length));
         request.write(indexHTML);
       }
-      // else if(data.toString().indexOf ('GET /helium.html HTTP/1.1') !== -1) {
-      //   request.write(myHeader(helium.length) + ' ' + helium);
-      // }
-      // else if(data.toString().indexOf ('GET /hydrogen.html HTTP/1.1') !== -1) {
-      //   request.write(myHeader(hydrogen.length) + ' ' + hydrogen);
-      // }
-      // else if(data.toString().indexOf ('GET /404.html HTTP/1.1') !== -1) {
-      //   request.write(myHeader(a404.length) + ' ' + a404);
-      // }
-      // else if(data.toString().indexOf ('GET /css/styles.css HTTP/1.1') !== -1) {
-      //   request.write(myCssHeader(css.length) + ' ' + css);
-      // }
+      else if(data.toString().indexOf ('GET /helium.html HTTP/1.1') !== -1) {
+        request.write(myHeader(helium.length));
+        request.write(helium);
+      }
+      else if(data.toString().indexOf ('GET /hydrogen.html HTTP/1.1') !== -1) {
+        request.write(myHeader(hydrogen.length));
+        request.write(hydrogen);
+      }
+      else if(data.toString().indexOf ('GET /404.html HTTP/1.1') !== -1) {
+        request.write(myHeader(a404.length));
+        request.write(a404);
+      }
+      else if(data.toString().indexOf ('GET /css/styles.css HTTP/1.1') !== -1) {
+        request.write(myCssHeader(css.length));
+        request.write(css);
+
+      }
 
 
     request.end();
